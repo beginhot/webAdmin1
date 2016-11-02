@@ -1,0 +1,84 @@
+<script type="text/javascript">
+
+	function readURLImg(img){
+		
+		if(img.files&&img.files[0]){
+			var reader = new FileReader();
+	
+	        reader.onload = function (e) {
+	            $('#img_preview_upload').attr('src', e.target.result);
+	        };
+	
+	        reader.readAsDataURL(img.files[0]);
+			//$("#img_news_picture").html('<img src="/images/'+img.files[0].name+'" width="128" height="128" alt="..." class="img-thumbnail">');		        
+	
+		}else{
+			$('#img_preview_upload').attr('src',"/images/noimage.jpg");
+		}
+		
+	}
+
+	function myFunctionImages() {
+	    var myWindow = window.open("/management-images/index", "", "width=1200, height=600");
+	}
+	
+	
+  $(document).ready(function(){
+
+	  //======= Create CKeditor ========== 
+	  CKEDITOR.replace( 'editor_add_news',{
+		  height:500
+		  /*filebrowserBrowseUrl: '/ckeditor/browser/browse.php?type=Files',
+		  filebrowserUploadUrl: '/ckeditor/uploader/upload.php?type=Files'*/}
+	   );
+
+
+	  //========== Event Button Upload Image On Change ===========
+	  $("#inputImgTitle").change(function() {
+			readURLImg(this);
+		});
+
+		//========= Event Button Detail Images On Click ===========
+		$("#btn_detial_images").on('click',function(){
+			myFunctionImages();
+		});
+
+	  
+	});
+  
+</script>
+
+
+
+    <div class="panel panel-default" >					
+			<div class="panel-heading" style="text-aling:center">
+			  	<label>เพิ่มข่าวใหม่</label>
+			 </div>
+			 <div class="panel-body">
+			  	<form role="form" action="/index/add-news" method="POST" id="form_add_news" enctype="multipart/form-data">			  			
+						<div class="form-group">
+							<label>หัวข้อข่าว</label>
+							<input type="text" name="title_news" id="title_news" class="form-control input-sm" placeholder="" required>							
+						</div>
+						<div class="form-group">
+							<label>ข่าวย่อ</label>							
+                			<textarea class="form-control" name="input_news_short" id="input_news_short" rows="5" required></textarea>	
+            							
+						</div>
+						<div class="form-group">
+							    <label for="inputImgTitle">ภาพหัวข้อข่าว</label>
+							    <input type="file" id="inputImgTitle" name="inputImgTitle" accept="image/*" required>
+							    <p class="help-block">Example</p>
+							    <span><img id="img_preview_upload" src="/images/noimage.jpg" width="128" height="128" alt="..." class="img-thumbnail"></span>							    
+							    <input style="max-width:150px;margin-top:10px" type="button" id="btn_detial_images" value="ข้อมูลรูปภาพ" class="btn btn-info btn-block">
+						</div>
+						<div class="form-group">
+							<label>เพิ่มเนื้อหา</label>
+							<textarea name="editor_add_news" id="editor_add_news" rows="15" cols="80">
+                				
+            				</textarea>															
+						</div>
+						<input style="max-width:150px" type="submit" value="บันทึกข้อมูล" class="btn btn-success btn-block">					
+					</form>
+			 </div>
+		</div>

@@ -1,0 +1,80 @@
+
+<script type="text/javascript">
+
+	function previewImg(img){
+		//========= check URL File =============
+		if(img.files&&img.files[0]){
+			var reader = new FileReader();
+	        reader.onload = function (e) {
+		        //========= Set src Imags ============
+	            $('#img_preview_management').attr('src', e.target.result);
+	        };
+	        reader.readAsDataURL(img.files[0]);				     
+		}else{
+			//========= Set src no Imags ============
+			$('#img_preview_management').attr('src',"/images/noimage.jpg");
+		}
+		
+	}
+
+	$(document).ready(function(){
+
+		  //========== Event Button Upload Image On Change ===========
+		  $("#inputFileUploads").change(function() {
+			  previewImg(this);
+			});
+	
+			//========= Event Button Save Images On Click ===========
+			$("#btn_detial_images").on('click',function(){
+				myFunctionImages();
+			});
+		  
+		});
+</script>
+
+
+<div class="container">
+	<div class="page-header">
+        <h1>Upload Images</h1>
+        
+     </div>
+     <div class="form-group" style="max-width:400px">
+     	<form action="/management-images/index" method="POST" enctype="multipart/form-data">
+			<label for="exampleInputFile">ชื่อรูปภาพ</label>
+			<input type="text" class="form-control" id="input_name_img" name="input_name_img" placeholder="" style="margin-bottom:5px" required />
+			<input type="file" id="inputFileUploads" name="inputFileUploads" accept="image/*" required />
+			<p class="help-block">Example</p>
+			<span>
+				<img id="img_preview_management" src="/images/noimage.jpg" width="128" height="128" alt="..." class="img-thumbnail">			
+			</span>							    
+			<input style="max-width:150px;margin-top:10px" type="submit" id="btn_save_images" value="Upload" class="btn btn-success btn-block">
+		</form>
+	 </div>
+     <div class="table-responsive">
+				<table class="table table-hover">
+					<thead>
+						<tr>
+			  			<th style="min-width:195px">ชื่อรูปภาพ</th>
+			  			<th style="min-width:100px">URL</th>
+			  			<th style="min-width:150px">ตัวอย่างรูป</th>
+			  			<th style="min-width:95px">วันที่</th>
+			  			</tr>
+					</thead>
+					<tbody id="tbody_data_img_upload">
+					<?php 
+						foreach ($this->result AS $value){
+							?>
+						 <tr>
+							<td><?php echo $value->img_name;?></td>
+							<td><?php echo $value->img_url;?></td>
+							<td><img width="64" height="64" alt="..." class="img-thumbnail" src="<?php echo $value->img_url;?>"></td>
+							<td><?php echo $value->updated_timestamp;?></td>
+						</tr>
+							<?php 
+						}
+					
+					?>								
+					</tbody>
+				</table>
+			</div>
+</div>

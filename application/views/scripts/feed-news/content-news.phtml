@@ -1,0 +1,192 @@
+<style>
+
+	@media screen and (max-width: 480px) {
+			#banner_content{display: none;}
+	}
+
+	img{
+		/*max-width:700px;*/
+	}
+	
+	#body_content_news img{
+		width:100%
+	}
+	
+	.carousel-holder {
+	    margin-bottom: 30px;
+	}
+	
+	.carousel-control,
+	.item {
+	    border-radius: 4px;
+	}
+	
+	.caption {
+	    height: 130px;
+	    overflow: hidden;
+	}
+	
+	.caption h4 {
+	    white-space: nowrap;
+	}
+	
+	.thumbnail img {
+	    width: 100%;
+	}
+	
+	.ratings {
+	    padding-right: 10px;
+	    padding-left: 10px;
+	    color: #d17581;
+	}
+	
+	.thumbnail {
+	    padding: 0;
+	}
+	
+	.thumbnail .caption-full {
+	    padding: 9px;
+	    color: #333;
+	}
+	
+	footer {
+	    margin: 50px 0;
+	}
+	
+</style>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#body_content_news img").addClass("img-responsive");
+	});
+</script>
+<!-- Script Load Twitter SDK -->
+<script>window.twttr = (function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0],
+    t = window.twttr || {};
+  if (d.getElementById(id)) return t;
+  js = d.createElement(s);
+  js.id = id;
+  js.src = "https://platform.twitter.com/widgets.js";
+  fjs.parentNode.insertBefore(js, fjs);
+ 
+  t._e = [];
+  t.ready = function(f) {
+    t._e.push(f);
+  };
+ 
+  return t;
+}(document, "script", "twitter-wjs"));</script>
+
+
+<div class="row">
+	<div class="col-md-6 col-md-offset-3">
+		<div class="thumbnail" id="banner_content"><img src="/images/background/kyoto.png" alt=""></div>
+	</div>
+</div>
+	<div class="row">
+		<!-- =================== Content News ============================= -->
+		<div class="col-md-8">		
+			
+			<div class="panel panel-default">
+						<div class="panel-heading" style="color:blue">
+						  <h4><?php echo $this->NewsContent->news_title?></h4>
+						</div>
+						<div class="panel-body">
+							<span class="label label-info">Tags </span> 
+							<a href="#" style="margin-left:5px;"><span class="label label-default">Samsung </span></a> 							
+							<div style="margin-top:5px" id="body_content_news"> <?php echo $this->NewsContent->news_content;?></div>				
+						   	
+						   	
+						   	<div class="row">
+						   		<div class="col-md-12"><span class="label label-info">Views : <?php echo $this->NewsContent->read_news?></span></br></div>
+						   	</div>
+						    <div class="row">
+						   		<div class="col-md-3"><span class="label label-default">เมื่อวันที่ : <?php echo $this->NewsContent->updated_timestamp;?></span></div>
+						   		<div class="col-md-2"><div class="fb-share-button" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button_count"></div></div>
+						   		<div class="col-md-2"><div class="fb-like" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button_count" data-action="like" data-show-faces="true" data-share="false"></div></div>
+						   		<div class="col-md-2"><a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=Hello%20world">Tweet</a></div>
+						   		<div class="col-md-3"></div>
+						   	</div>																																							  		
+						    
+						</div>			  		
+			</div>	
+			
+		</div>
+		<div class="col-sm-4 col-lg-4 col-md-4">			                   
+			<div class="thumbnail">
+            	<img src="/images/background/s7-review-023.jpg" alt="">
+                <div class="caption">
+                    <h4 class="pull-right"></h4>
+                    <h4><a href="#">[รีวิว] Samsung Galaxy S7 บอดี้กันน้ำ กันฝุ่น </a></h4>
+                    <p>รีวิว Samsung Galaxy S7 อัพเดทสเปคและราคา อัพเดทล่าสุด</p>
+                </div>
+                <div class="ratings">
+                    <p class="pull-right">18 reviews</p>
+                    <p>
+                       <span class="glyphicon glyphicon-star"></span>
+                       <span class="glyphicon glyphicon-star"></span>
+                       <span class="glyphicon glyphicon-star"></span>
+                       <span class="glyphicon glyphicon-star"></span>
+                       <span class="glyphicon glyphicon-star-empty"></span>
+                     </p>
+                </div>
+            </div>	
+            
+            <div class="thumbnail">
+            	<img src="/images/background/iphone6s.jpg" alt="">
+                <div class="caption">
+                    <h4 class="pull-right"></h4>
+                    <h4><a href="#">อัพเดทข่าวสาร iPhone 6 สรุปข้อมูลล่าสุด</a></h4>
+                    <p>รีวิว iPhone 6 Plus ไอโฟนหน้าจอใหญ่ 5.5 นิ้ว แบบ Retina HD Display และโหมดใช้งานแนวนอน ล่าสุด ราคา iPhone 6 Plus เครื่องหิ้ว แตะ 80,000 บาทแล้ว </p>
+                </div>
+                <div class="ratings">
+                    <p class="pull-right">18 reviews</p>
+                    <p>
+                       <span class="glyphicon glyphicon-star"></span>
+                       <span class="glyphicon glyphicon-star"></span>
+                       <span class="glyphicon glyphicon-star"></span>
+                       <span class="glyphicon glyphicon-star"></span>
+                       <span class="glyphicon glyphicon-star-empty"></span>
+                     </p>
+                </div>
+            </div>	   
+                    
+
+ 			<div class="thumbnail">
+            	<img src="/images/background/speednet.png" alt="">
+            </div>
+            
+            
+			<div class="background">
+				<div class="transbox">
+					<p>This is some text that is placed in the transparent box.
+					This is some text that is placed in the transparent box.
+					This is some text that is placed in the transparent box.
+					This is some text that is placed in the transparent box.
+					This is some text that is placed in the transparent box.
+					</p>
+				</div>
+			</div>
+
+			<div style="max-width:100px">
+				<div>
+					<img src="/images/title/img_title_20160329134153.jpg" class="img-responsive" alt="Responsive image">
+				</div>
+				<div style="height:25px;width:100%;background-color:#000000;color:#ffffff;display:flex;opacity:0.6;font-size:10px;font-weight:bolder;padding-top:15px;postion:relative;bottom:26px;">
+					<img src="/images/icon/like.png" class="img-responsive" alt="Responsive image" style="height:10px;">
+					<span>Like</span>
+					<img src="/images/icon/share.png" class="img-responsive" alt="Responsive image" style="height:10px;">
+					<span>Share</span>
+				</div>
+			</div>
+
+                                                             
+		</div>
+		<div class="fb-comments" data-href="http://www.techmoblog.com/samsung-galaxy-note-5-useful-features/" data-numposts="5"></div>
+		<div class="row">
+			<div class="col-sm-6 col-lg-12 col-md-12">
+				
+			</div>
+		</div>
+		
+	</div>

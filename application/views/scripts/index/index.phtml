@@ -1,0 +1,277 @@
+<style>
+body {
+  padding-top: 20px;
+}
+
+.icon-size{	
+	width: 25px;
+    height: 18px;
+    margin-right: 5px;
+}
+
+.footer {
+  padding-top: 40px;
+  padding-bottom: 40px;
+  margin-top: 40px;
+  border-top: 1px solid #eee;
+}
+
+/* Main marketing message and sign up button */
+.jumbotron {
+  text-align: center;
+  background-color: transparent;
+}
+.jumbotron .btn {
+  padding: 14px 24px;
+  font-size: 21px;
+}
+
+/* Customize the nav-justified links to be fill the entire space of the .navbar */
+
+.nav-justified {
+  background-color: #eee;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+.nav-justified > li > a {
+  padding-top: 15px;
+  padding-bottom: 15px;
+  margin-bottom: 0;
+  font-weight: bold;
+  color: #777;
+  text-align: center;
+  background-color: #e5e5e5; /* Old browsers */
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#f5f5f5), to(#e5e5e5));
+  background-image: -webkit-linear-gradient(top, #f5f5f5 0%, #e5e5e5 100%);
+  background-image:      -o-linear-gradient(top, #f5f5f5 0%, #e5e5e5 100%);
+  background-image:         linear-gradient(to bottom, #f5f5f5 0%,#e5e5e5 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f5f5f5', endColorstr='#e5e5e5',GradientType=0 ); /* IE6-9 */
+  background-repeat: repeat-x; /* Repeat the gradient */
+  border-bottom: 1px solid #d5d5d5;
+}
+.nav-justified > .active > a,
+.nav-justified > .active > a:hover,
+.nav-justified > .active > a:focus {
+  background-color: #ddd;
+  background-image: none;
+  -webkit-box-shadow: inset 0 3px 7px rgba(0,0,0,.15);
+          box-shadow: inset 0 3px 7px rgba(0,0,0,.15);
+}
+.nav-justified > li:first-child > a {
+  border-radius: 5px 5px 0 0;
+}
+.nav-justified > li:last-child > a {
+  border-bottom: 0;
+  border-radius: 0 0 5px 5px;
+}
+
+@media (min-width: 768px) {
+  .nav-justified {
+    max-height: 52px;
+  }
+  .nav-justified > li > a {
+    border-right: 1px solid #d5d5d5;
+    border-left: 1px solid #fff;
+  }
+  .nav-justified > li:first-child > a {
+    border-left: 0;
+    border-radius: 5px 0 0 5px;
+  }
+  .nav-justified > li:last-child > a {
+    border-right: 0;
+    border-radius: 0 5px 5px 0;
+  }
+}
+
+/* Responsive: Portrait tablets and up */
+@media screen and (min-width: 768px) {
+  /* Remove the padding we set earlier */
+  .masthead,
+  .marketing,
+  .footer {
+    padding-right: 0;
+    padding-left: 0;
+  }
+}
+
+</style>
+<script src="/ckeditor/ckeditor.js"></script>
+<script>
+
+	function addEventListeners(){
+
+		  //=================== Event On Click Set Active Tag li ================
+		  $('li').on('click', function () {
+			  	var thisClick=this; 
+			  	//========== Remove ALll Class Active Bootstrap ==========
+				$.each($('li'),function(k,v){					
+					$("#"+v.id).removeClass("active");	
+				});
+				//=========== Set li On Clikc set Class Active =======
+				$("#"+this.id).addClass("active");
+		  });
+
+
+		  
+		  //============== Event On Click Show Data News =============
+		  $('#link_all_news').on('click', function () {
+			  $( "#index_content_pange" ).load( "/index/data-news" );
+		  });
+
+		  //============== Event On Click Add News =============
+		  $('#link_add_news').on('click', function () {			
+			  $( "#index_content_pange" ).load( "/index/add-news" );
+		  });
+
+
+			//============== Event On Click Show Data News In Bin =============
+		  $('#link_bin_news').on('click', function () {
+			  $( "#index_content_pange" ).load( "/index/data-bins" );			
+		  });
+
+		  
+	}
+
+	function createElements(){
+	 //========== Hidden manu On Page CMS Project ===========
+	 $("#panel_cms_project").hide();
+
+	 //=============== Check Page On load ==============
+
+	 //================== Load View Data News And Check Case Search Data ============
+	 if("<?php echo $_REQUEST['page']?>"=="views"){
+		 if("<?php echo $_REQUEST['mode_search']?>"=="yes"){
+			 $("#index_content_pange" ).load( "/index/data-news?input_search_data_news=<?php echo $_REQUEST['input_search_data_news']?>" );
+		 }else{
+			 $("#index_content_pange" ).load( "/index/data-news" );
+		 }
+		
+		 $("#panel_cms_project").show();
+		 $.each($('li'),function(k,v){					
+				$("#"+v.id).removeClass("active");	
+		 });
+		 $("#li_cms_project").addClass("active");
+
+	//================== Load View Add Data News ============
+	 }else if("<?php echo $_REQUEST['page']?>"=="add_news"){	
+		 $( "#index_content_pange" ).load( "/index/add-news" );
+		 $("#panel_cms_project").show();
+		 $.each($('li'),function(k,v){					
+				$("#"+v.id).removeClass("active");	
+		 });
+		 $("#li_cms_project").addClass("active");
+
+	//================== Load View Edit Data News ============
+	 }else if("<?php echo $_REQUEST['page']?>"=="edit_news"){	
+		 $( "#index_content_pange" ).load( "/index/edit-news" );
+		 $("#panel_cms_project").show();
+		 $.each($('li'),function(k,v){					
+				$("#"+v.id).removeClass("active");	
+		 });
+		 $("#li_cms_project").addClass("active");
+
+	//================== Load View Data News Bin And Check Mode Search Data ============
+	 }else if("<?php echo $_REQUEST['page']?>"=="news_bin"){	
+		 if("<?php echo $_REQUEST['mode_search']?>"=="yes"){
+			 $( "#index_content_pange" ).load( "/index/data-bins?keyword=<?php echo $_REQUEST['keyword']?>" );
+		 }else{
+			 $( "#index_content_pange" ).load( "/index/data-bins" );
+		 }
+		 $("#panel_cms_project").show();
+		 $.each($('li'),function(k,v){					
+				$("#"+v.id).removeClass("active");	
+		 });
+		 $("#li_cms_project").addClass("active");
+
+	 //================== Load View Content News  ============
+	 }else if("<?php echo $_REQUEST['page']?>"=="content"){
+		 $( "#index_content_pange" ).load( "/feed-news/content-news?news_id=<?php echo $_REQUEST['news_id']?>" );
+		 
+	//================== Load View Content News  ============
+	 }else if("<?php echo $_REQUEST['page']?>"=="services"){
+		 $( "#index_content_pange" ).load( "/services/index" );
+		 $.each($('li'),function(k,v){					
+				$("#"+v.id).removeClass("active");	
+		 });
+		 $("#li_services").addClass("active");
+		 
+	//================= Load View Feed News ==============
+	 }else{
+		 $( "#index_content_pange" ).load( "/feed-news/index" );
+	 }
+	 		 
+	}
+	
+	//============ Jquery Start ==============
+  $(document).ready(function(){
+	  //======== Requert Funtion ===========
+	  createElements();
+	  addEventListeners();
+
+	  
+	});
+  
+</script>
+
+<!-- Script Load Facebook SDK -->
+<script>
+
+function logoutFB(){
+	
+	FB.getLoginStatus(function(response) {
+		if (response.status === 'connected') {
+			FB.logout(function(response) {
+				window.location.href = '/index/logout';
+			});
+		}else{
+			window.location.href = '/index/logout';
+		}
+
+	});
+	
+}
+	window.fbAsyncInit = function() {
+		FB.init({
+		  appId      : '963402367100201',
+		  cookie     : true,  // enable cookies to allow the server to access 
+		                      // the session
+		  xfbml      : true,  // parse social plugins on this page
+		  version    : 'v2.5' // use graph api version 2.5
+		});
+	};
+	(function(d, s, id) {
+	var js, fjs = d.getElementsByTagName(s)[0];
+	if (d.getElementById(id)) return;
+	js = d.createElement(s); js.id = id;
+	js.src = "//connect.facebook.net/th_TH/sdk.js#xfbml=1&version=v2.5&appId=827092537382497";
+	fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));
+</script>	
+
+
+
+
+<div class="container">
+
+   <div class="masthead">
+        <h3 class="text-muted">System Administrator</h3>
+        <nav>
+          <ul class="nav nav-justified" id="nav_justified_menu">
+            <li id="li_home" class="active"><a href="/index/index"><img class="icon-size" src="/images/icon/home.png">Home</a></li>
+            <li id="li_cms_project"><a href="/index/index?page=views"><img class="icon-size" src="/images/icon/archives.png">CMS Project</a></li>
+            <li id="li_services"><a href="/index/index?page=services"><img class="icon-size" src="/images/icon/config.png">Services</a></li>
+            <li id="li_downloads"><a href="#"><img class="icon-size" src="/images/icon/suppliers.png">Downloads</a></li>
+            <li id="li_abount"><a href="#"><img class="icon-size" src="/images/icon/customers.png">About</a></li>
+            <li id="li_logout"><a href="#" onclick="logoutFB();"><img class="icon-size" src="/images/icon/logout.png">Logout</a></li>
+          </ul>
+        </nav>
+   </div>
+   </br>
+	<div class="panel" id="panel_cms_project">
+		<a href="/index/index?page=views" id="link_all_news" >ทั้งหมด(<?php echo $this->countRows['num_all']?>)</a><span> | </span>
+		<a href="/index/index?page=add_news" id="link_add_news" >เขียนข่าวใหม่</a><span> | </span>
+		<a href="/index/index?page=news_bin" id="link_bin_news" >ถังขยะ (<?php echo $this->countRows['num_bin']?>)</a>
+	</div>
+	<div id="index_content_pange"></div>
+</div>
+

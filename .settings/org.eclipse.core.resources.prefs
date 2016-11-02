@@ -1,0 +1,12 @@
+#Mon Mar 28 16:47:44 ICT 2016
+eclipse.preferences.version=1
+encoding//application/controllers/IndexController.php=UTF-8
+encoding//application/views/scripts/feed-news/content-news.phtml=UTF-8
+encoding//application/views/scripts/feed-news/index.phtml=UTF-8
+encoding//application/views/scripts/index/add-news.phtml=UTF-8
+encoding//application/views/scripts/index/data-bins.phtml=UTF-8
+encoding//application/views/scripts/index/data-news.phtml=UTF-8
+encoding//application/views/scripts/index/edit-news.phtml=UTF-8
+encoding//application/views/scripts/index/index.phtml=UTF-8
+encoding//application/views/scripts/index/login.phtml=UTF-8
+encoding//application/views/scripts/management-images/index.phtml=UTF-8

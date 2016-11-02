@@ -1,0 +1,102 @@
+<script>
+	
+	function editDataNews(news_id){
+		
+		//========== Load Ajax Page edit-news To div id Page index =============
+		$( "#index_content_pange" ).load( "/index/edit-news?news_id="+news_id );		
+	}
+
+	function SetActiveNews(news_id){	
+		$("#news_id_confirm_delete").val(news_id);
+		$( "#dialog_confirm_delete" ).dialog('open');		
+	}
+
+	function confirmDelete(){
+		var NewsID=$("#news_id_confirm_delete").val();
+		//============= Submit Form Confirm Delete To Bin ==========
+		$( "#form_confirm_delete" ).submit();
+	}
+	
+  $(document).ready(function(){
+
+		//========== Create Element Dialog Confirm Delete=============
+		 dialogDelete = $( "#dialog_confirm_delete" ).dialog({
+		      autoOpen: false,
+		      height: 150,
+		      width: 350,
+		      modal: true,
+		      buttons: {
+		        "Ok": confirmDelete,
+		        Cancel: function() {
+		        	dialogDelete.dialog( "close" );
+		        }
+		      }
+		    });
+		    
+	});
+  
+</script>
+
+<!-- Div Element Dialog Confirm Delete -->
+<div id="dialog_confirm_delete" title="Confirm Delete">
+  <p>Are you sure you want to delete</p>
+  <form id="form_confirm_delete" action="/index/data-news" method="POST"><input type="hidden" name="news_id_confirm_delete" id="news_id_confirm_delete"/></form>
+</div>
+<!-- End Div Element Dialog Confirm Delete -->
+
+<div class="panel panel-default">
+		<div class="panel-heading" style="text-aling:center">
+			<div class="row">
+				<div class="col-md-8">
+					<label>ข้อมูลของข่าวทั้งหมด</label>
+				</div>
+				<div class="col-md-4">
+					<form action="/index/index" method="POST">
+					<div class="input-group">	
+						<input type="hidden" name="page" value="views">	 								 
+		      			<input type="text" name="input_search_data_news" class="form-control" placeholder="Search for...">	
+		      			<input type="hidden" name="mode_search" value="yes">		      			     		
+		      			<span class="input-group-btn">
+		        			<button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+		      			</span>
+		    		</div>
+		    		</form>
+				</div>
+			</div>
+						 
+		</div>
+		<dir class="panel-body">
+			<div class="table-responsive">
+				<table class="table table-hover">
+					<thead>
+						<tr>
+						<th>หัวข้อข่าว</th>
+			  			<th style="min-width:195px">ผู้เขียน</th>
+			  			<th style="min-width:100px">หมวดหมู่</th>
+			  			<th style="min-width:150px">วันที่</th>
+			  			<th style="min-width:95px"></th>
+			  			</tr>
+					</thead>
+					<tbody id="tbody_all_news">
+					<?php 
+						foreach ($this->dataNews AS $value){
+							?>
+						 <tr>
+							<td><a href="#" onclick="editDataNews(<?php echo $value->news_id;?>)"><?php echo $value->news_title;?></a></td>
+							<td>Jesdaporn mangmee</td>
+							<td>Mobile</td>
+							<td><?php echo $value->updated_timestamp;;?></td>
+							<td>								
+								<a href="#" style="color:red;" onclick="SetActiveNews(<?php echo $value->news_id;?>);">เก็บลงถังขยะ</a>
+								<!-- /index/data-news?active_news_id=<?php echo $value->news_id;?> -->
+							</td>
+						</tr>
+							<?php 
+						}
+					
+					?>						
+					</tbody>
+				</table>
+			</div>
+		</dir>
+	</div>

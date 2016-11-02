@@ -1,0 +1,165 @@
+<script type="text/javascript">
+	//This is called with the results from from FB.getLoginStatus().
+	function statusChangeCallback(response) {	
+		console.log(response); 
+	  if (response.status === 'connected') {	  
+		  ActionLoginAPI();		
+	  } else if (response.status === 'not_authorized') {	   
+	    document.getElementById('status').innerHTML = 'Please log ' +'into this app.';
+	  } else {	   
+	    document.getElementById('status').innerHTML = 'Please log ' +'into Facebook.';
+	  }
+	}
+
+	function checkLoginState() {
+	  FB.getLoginStatus(function(response) {		 
+	    statusChangeCallback(response);
+	  });
+	}	
+
+	
+	function logoutFB(){
+		FB.getLoginStatus(function(response) {console.log(response);
+			if (response.status === 'connected') {
+				FB.logout(function(response) {
+					statusChangeCallback(response); 
+				});
+			}
+		});
+	}
+	
+	window.fbAsyncInit = function() {
+		FB.init({
+		  appId      : '963402367100201',
+		  cookie     : true,  // enable cookies to allow the server to access 
+		                      // the session
+		  xfbml      : true,  // parse social plugins on this page
+		  version    : 'v2.5' // use graph api version 2.5
+		});
+		
+		FB.getLoginStatus(function(response) {			
+			  statusChangeCallback(response);				  
+		});
+	};
+	
+	// Load the SDK asynchronously
+	(function(d, s, id) {
+	  var js, fjs = d.getElementsByTagName(s)[0];
+	  if (d.getElementById(id)) return;
+	  js = d.createElement(s); js.id = id;
+	  js.src = "//connect.facebook.net/en_US/sdk.js";
+	  fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));
+	
+	// Here we run a very simple test of the Graph API after login is
+	// successful.  See statusChangeCallback() for when this call is made.
+	function ActionLoginAPI() {
+	 
+	  FB.api('/me?fields=id,email,name,first_name,last_name', function(response) {
+
+		  //$("#userName").val(response.id);
+		  //$("#userPassword").val(response.id);		
+		  //============ เช็คค่า Login Facebook ว่ามีอยู่ในฐานข้อมูลหรือยัง ถ้ายังให้ไปเพิ่มลงฐานข้อมูล ===========
+		/*$.ajax({
+			url:'/index/login',
+			type:'POST',
+			data:{fbdata:response},
+			error:function(XMLHttpRequest, textStatus, errorThrown){
+				alert("Status: " + textStatus); alert("Error: " + errorThrown); 
+			},beforeSend:function(){
+				
+			},complete:function(){
+				
+			},success:function(data){
+				console.log(data);
+			}			
+			});*/
+		  
+	    console.log(response);
+	    document.getElementById('status').innerHTML =
+	      'Thanks for logging in, ' + response.name + '!';
+	  	});
+	}
+
+
+		//------------- Jquery Start -------------------
+		$(document).ready(function(){
+			
+			//======== Massing Status Login ============== 
+			var check_msg="<?php echo $this->msg_status?>";
+			$("#label_login_error").hide();
+			//--------- Check Value Longin ---------------//
+			if(check_msg=="error"){
+				$("#label_login_error").show();
+			}
+		
+		});
+		
+</script>
+<style>
+	body {
+	  background-color:#fff;
+	  -webkit-font-smoothing: antialiased;
+	  font: normal 14px Roboto,arial,sans-serif;
+	}
+	.container{	
+		padding:25px;
+		postion:fixed;
+	}
+	
+	.form-login{	
+		background-color:#EDEDED;
+		padding-top:10px;
+	 	padding-bottom: 20px;
+    	padding-left: 20px;
+    	padding-right: 20px;
+	 	border-radius: 15px;
+		border-color:#d2d2d2;
+		border-width: 5px;
+		box-shadow:0 1px 0 #cfcfcf;
+		min-width:300px;
+	}
+	
+	h4{
+	
+		border:0 solid #fff;
+		border-bottom-width:1px;
+		padding-bottom:10px;
+ 		text-align: center;
+		
+	}
+	
+	.form-control {
+	    border-radius: 10px;
+	}
+	
+	.wrapper {
+	    text-align: center;
+	}
+	
+</style>
+<div class="container">
+	<div class="row">
+		<div class="col-md-offset-4 col-md-4">			
+		<form role="form" action="/index/login" method="POST" id="form_login">
+			<div class="form-login">
+				<h4>Administrator</h4>
+				<input type="text" id="userName" name="userName" class="form-control input-sm chat-input" placeholder="username" required/>
+				</br>
+				<input type="password" id="userPassword" name="userPassword" class="form-control input-sm chat-input" placeholder="password" required/>
+				</br>
+				<div id="label_login_error" style="color:red;margin-bottom:5px;">***บัญชีผู้ใช้หรือรหัสผ่านไม่ถูกต้อง</div>
+				<div class="wrapper">
+					<table style="width:100%">
+						<tr>
+							<td style="text-align:right;padding-right:5px"><button class="btn btn-primary btn-md">login<i class="fa fa-sign-in"></i></button> </td>
+							<td style="text-align:left;padding-left:5px;border-left: 1px solid;"><div class="fb-login-button" data-max-rows="1" scope="public_profile,email" onlogin="checkLoginState();" data-size="medium" data-show-faces="false" data-auto-logout-link="false"></div></td>
+						</tr>
+					</table>										
+					<div id="status"></div>																																	
+				</div>
+			</div>
+		</form>						
+		</div>
+	</div>
+</div>

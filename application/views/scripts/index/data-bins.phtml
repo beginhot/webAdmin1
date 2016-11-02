@@ -1,0 +1,97 @@
+<script>
+
+	function ConfirmDeleteForerver(news_id){
+		$("#news_id_confirm_delete_forerver").val(news_id);
+		$( "#dialog_confirm_delete_forever" ).dialog('open');
+	}
+	
+	function DeleteForerver(){
+		var news_id=$("#news_id_confirm_delete_forerver").val();		
+		//============= Submit Form Confirm Delete Forever ==========
+		$( "#form_confirm_delete_forever" ).submit();		
+	}
+
+  $(document).ready(function(){
+
+		//========== Create Element Dialog Confirm Delete Forever =============
+		 dialogDelete = $( "#dialog_confirm_delete_forever" ).dialog({
+		      autoOpen: false,
+		      height: 150,
+		      width: 350,
+		      modal: true,
+		      buttons: {
+		        "Ok": DeleteForerver,
+		        Cancel: function() {
+		        	dialogDelete.dialog( "close" );
+		        }
+		      }
+		    });
+
+	});
+  
+</script>
+
+<!-- Div Element Dialog Confirm Delete forever -->
+<div id="dialog_confirm_delete_forever" title="ยืนยันลบข้อมูลแบบถาวร">
+  <p>คุณต้องการลบข้อมูลนี้แบบถาวรใช่หรือไม</p>
+  <form id="form_confirm_delete_forever" action="/index/data-bins" method="GET"><input type="hidden" name="news_id_confirm_delete_forerver" id="news_id_confirm_delete_forerver"/></form>
+</div>
+<!-- End Div Element Dialog Confirm Delete -->
+
+
+<div class="panel panel-default">
+		<div class="panel-heading" style="text-aling:center">
+			<div class="row">
+				<div class="col-md-8">
+					<label>ข่าวในถังขยะ</label>
+				</div>
+				<div class="col-md-4">
+				<form action="/index/index" method="GET">	
+					<div class="input-group">						
+						<input type="hidden" name="page" value="news_bin">	 								 
+		      			<input type="text" class="form-control" name="keyword" placeholder="Search for...">
+		      			<input type="hidden" name="mode_search" value="yes">	
+		      			<span class="input-group-btn">
+		        			<button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+		      			</span>		      			
+		    		</div>
+		    		</form>
+				</div>
+			</div>
+						 
+		</div>
+		<dir class="panel-body">
+			<div class="table-responsive">
+				<table class="table table-hover">
+					<thead>
+						<tr>
+						<th>หัวข้อข่าว</th>
+			  			<th style="min-width:195px">ผู้เขียน</th>
+			  			<th style="min-width:100px">หมวดหมู่</th>
+			  			<th style="min-width:150px">วันที่</th>
+			  			<th style="min-width:95px"></th>
+			  			</tr>
+					</thead>
+					<tbody>
+					<?php 
+						foreach ($this->dataNewsBin AS $value){
+							?>
+							<tr>
+							<td><?php echo $value->news_title;?></td>
+							<td>Jesdaporn mangmee</td>
+							<td>Mobile</td>
+							<td><?php echo date('Y-m-d H:i:s')?></td>
+							<td>
+								<a href="/index/data-bins?active_news_id=<?php echo $value->news_id;?>">กู้คืน</a>
+								<a href="#" style="color:red" onclick="ConfirmDeleteForerver(<?php echo $value->news_id;?>);">ลบถาวร</a>
+							</td>
+						</tr>
+							<?php 
+						}
+					?>
+						
+					</tbody>
+				</table>
+			</div>
+		</dir>
+	</div>
